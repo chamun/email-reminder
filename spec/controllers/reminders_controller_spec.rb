@@ -9,13 +9,23 @@ RSpec.describe RemindersController, type: :controller do
   end
 
   describe 'POST /create' do
-    it 'redirects to the /new page' do
-      post :create
-      expect(response).to redirect_to(new_reminder_path)
-    end
 
-    it 'creates a new reminder' do
-      expect { post :create }.to change { Reminder.count }.by(1)
+    describe 'with valid params' do
+
+      def make_request
+        post :create, params: {
+          reminder: { title: 'A title', date: '02/15/1991' }
+        }
+      end
+
+      it 'redirects to the /new page' do
+        make_request
+        expect(response).to redirect_to(new_reminder_path)
+      end
+
+      it 'creates a new reminder' do
+        expect { make_request }.to change { Reminder.count }.by(1)
+      end
     end
   end
 
