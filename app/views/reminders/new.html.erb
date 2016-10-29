@@ -1,0 +1,11 @@
+<%= form_for(@reminder) do |f|  %>
+  <%= f.label :title, 'Title' %>
+  <%= f.text_field :title %>
+  <%= f.label :date, 'Date' %>
+  <%= f.date_field :date %>
+  <%= f.label :time, 'Time' %>
+  <%= f.select :time, options_for_select(time_options) %>
+  <%= f.label :message, 'Message' %>
+  <%= f.text_area :message %>
+  <%= f.submit 'Submit' %>
+<% end %>
