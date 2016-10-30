@@ -28,66 +28,40 @@ RSpec.describe RemindersController, type: :controller do
       end
     end
 
-    describe 'without a title params' do
+    describe 'with invalid params' do
+      shared_examples_for 'invalid params' do
+        def make_request
+          post :create, params: { reminder: reminder }
+        end
 
-      def make_request
-        post :create, params: { reminder: { date: '02/15/1991' } }
+        it 'renders the :new template' do
+          make_request
+          expect(response).to render_template('new')
+        end
+
+        it 'does not create a new reminder' do
+          expect { make_request }.not_to change { Reminder.count }
+        end
+
+        it 'flashes an error message' do
+          make_request
+          expect(flash[:error]).to eq('Reminder could not be created!')
+        end
       end
 
-      it 'renders the :new template' do
-        make_request
-        expect(response).to render_template('new')
+      describe 'missing title' do
+        let(:reminder) { { date: '02/15/1991' } }
+        include_examples 'invalid params'
       end
 
-      it 'does not create a new reminder' do
-        expect { make_request }.not_to change { Reminder.count }
+      describe 'missing date' do
+        let(:reminder) { { title: 'A title' } }
+        include_examples 'invalid params'
       end
 
-      it 'flashes an error message' do
-        make_request
-        expect(flash[:error]).to eq('Reminder could not be created!')
-      end
-    end
-
-    describe 'without a date param' do
-
-      def make_request
-        post :create, params: { reminder: { title: 'A title' } }
-      end
-
-      it 'renders the :new template' do
-        make_request
-        expect(response).to render_template('new')
-      end
-
-      it 'does not create a new reminder' do
-        expect { make_request }.not_to change { Reminder.count }
-      end
-
-      it 'flashes an error message' do
-        make_request
-        expect(flash[:error]).to eq('Reminder could not be created!')
-      end
-    end
-
-    describe 'with an invalid date' do
-
-      def make_request
-        post :create, params: { reminder: { title: 'A title', date: 'invalid' } }
-      end
-
-      it 'renders the :new template' do
-        make_request
-        expect(response).to render_template('new')
-      end
-
-      it 'does not create a new reminder' do
-        expect { make_request }.not_to change { Reminder.count }
-      end
-
-      it 'flashes an error message' do
-        make_request
-        expect(flash[:error]).to eq('Reminder could not be created!')
+      describe 'invalid date' do
+        let(:reminder) { { title: 'A title', date: 'invalid' } }
+        include_examples 'invalid params'
       end
     end
   end
