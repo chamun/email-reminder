@@ -48,6 +48,48 @@ RSpec.describe RemindersController, type: :controller do
         expect(flash[:error]).to eq('Reminder could not be created!')
       end
     end
+
+    describe 'without a date param' do
+
+      def make_request
+        post :create, params: { reminder: { title: 'A title' } }
+      end
+
+      it 'renders the :new template' do
+        make_request
+        expect(response).to render_template('new')
+      end
+
+      it 'does not create a new reminder' do
+        expect { make_request }.not_to change { Reminder.count }
+      end
+
+      it 'flashes an error message' do
+        make_request
+        expect(flash[:error]).to eq('Reminder could not be created!')
+      end
+    end
+
+    describe 'with an invalid date' do
+
+      def make_request
+        post :create, params: { reminder: { title: 'A title', date: 'invalid' } }
+      end
+
+      it 'renders the :new template' do
+        make_request
+        expect(response).to render_template('new')
+      end
+
+      it 'does not create a new reminder' do
+        expect { make_request }.not_to change { Reminder.count }
+      end
+
+      it 'flashes an error message' do
+        make_request
+        expect(flash[:error]).to eq('Reminder could not be created!')
+      end
+    end
   end
 
 end
