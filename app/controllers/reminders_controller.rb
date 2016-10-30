@@ -4,9 +4,14 @@ class RemindersController < ApplicationController
   end
 
   def create
-    Reminder.create!(reminder_params)
-    flash[:notice] = 'Reminder successfully created!'
-    redirect_to new_reminder_path
+    @reminder = Reminder.create(reminder_params)
+    if @reminder.valid?
+      flash[:notice] = 'Reminder successfully created!'
+      redirect_to new_reminder_path
+    else
+      flash[:error] = 'Reminder could not be created!'
+      render 'new'
+    end
   end
 
   private
