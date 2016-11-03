@@ -13,9 +13,7 @@ RSpec.describe RemindersController, type: :controller do
     describe 'with valid params' do
 
       def make_request
-        post :create, params: {
-          reminder: { title: 'A title', date: '1991-02-15' }
-        }
+        post :create, params: { reminder: attributes_for(:reminder) }
       end
 
       it 'redirects to the /new page' do
@@ -50,17 +48,17 @@ RSpec.describe RemindersController, type: :controller do
       end
 
       describe 'missing title' do
-        let(:reminder) { { date: '1991-02-15' } }
+        let(:reminder) { attributes_for(:reminder, title: nil) }
         include_examples 'invalid params'
       end
 
       describe 'missing date' do
-        let(:reminder) { { title: 'A title' } }
+        let(:reminder) { attributes_for(:reminder, date: nil) }
         include_examples 'invalid params'
       end
 
       describe 'invalid date' do
-        let(:reminder) { { title: 'A title', date: 'invalid' } }
+        let(:reminder) { attributes_for(:reminder, date: 'invalid') }
         include_examples 'invalid params'
       end
     end
