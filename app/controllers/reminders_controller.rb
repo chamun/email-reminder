@@ -27,7 +27,7 @@ class RemindersController < ApplicationController
 
   def to_date(date_string)
     return nil unless date_string.present?
-    Date.strptime(date_string, '%m/%d/%Y')
+    Date.strptime(date_string, '%Y-%m-%d')
   rescue ArgumentError
     nil
   end

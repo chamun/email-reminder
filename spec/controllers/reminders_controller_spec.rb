@@ -14,7 +14,7 @@ RSpec.describe RemindersController, type: :controller do
 
       def make_request
         post :create, params: {
-          reminder: { title: 'A title', date: '02/15/1991' }
+          reminder: { title: 'A title', date: '1991-02-15' }
         }
       end
 
@@ -50,7 +50,7 @@ RSpec.describe RemindersController, type: :controller do
       end
 
       describe 'missing title' do
-        let(:reminder) { { date: '02/15/1991' } }
+        let(:reminder) { { date: '1991-02-15' } }
         include_examples 'invalid params'
       end
 
