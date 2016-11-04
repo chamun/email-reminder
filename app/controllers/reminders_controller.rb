@@ -19,7 +19,7 @@ class RemindersController < ApplicationController
   def reminder_params
     params
       .require(:reminder)
-      .permit(:title, :date)
+      .permit(:title, :date, :time)
       .tap do |reminder|
         reminder[:date] = to_date(reminder[:date])
       end
