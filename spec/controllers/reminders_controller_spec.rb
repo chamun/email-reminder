@@ -61,6 +61,16 @@ RSpec.describe RemindersController, type: :controller do
         let(:reminder) { attributes_for(:reminder, date: 'invalid') }
         include_examples 'invalid params'
       end
+
+      describe 'missing time' do
+        let(:reminder) { attributes_for(:reminder, time: nil) }
+        include_examples 'invalid params'
+      end
+
+      describe 'missing time' do
+        let(:reminder) { attributes_for(:reminder, time: 'invalid') }
+        include_examples 'invalid params'
+      end
     end
   end
 
