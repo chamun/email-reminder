@@ -13,9 +13,9 @@ RSpec.describe Reminder, type: :model do
 
   describe 'date and time validation' do
     context 'future date and time' do
-      subject { build(:reminder) }
+      subject { build(:reminder, time: DateTime.current.hour + 1) }
 
-      it 'is not valid' do
+      it 'is valid' do
         expect(subject.valid?).to be true
       end
     end
@@ -39,7 +39,7 @@ RSpec.describe Reminder, type: :model do
     end
 
     context 'current date but time in the past' do
-      subject { build(:reminder, time: 1.hour.ago.hour) }
+      subject { build(:reminder, time: 2.hours.ago.hour) }
 
       it 'is not valid' do
         expect(subject.valid?).to be false
