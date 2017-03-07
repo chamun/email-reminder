@@ -2,11 +2,18 @@ require 'rails_helper'
 
 RSpec.feature 'Creating a reminder' do
 
+  def select_future_date_and_time
+    future_date = DateTime.current.tomorrow
+    fill_in 'Date', with: future_date
+    within('#reminder_time') do
+      find("option[value='#{future_date.hour}']").click
+    end
+  end
+
   scenario 'Submiting a complete form' do
     visit new_reminder_path
     fill_in 'Title', with: 'Eggs'
-    fill_in 'Date', with: Date.current
-    select '01:00 PM', from: 'Time'
+    select_future_date_and_time
     fill_in 'Message', with: "Don't forget to buy eggs"
     click_on 'Submit'
 
