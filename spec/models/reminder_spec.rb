@@ -4,57 +4,38 @@ RSpec.describe Reminder, type: :model do
   subject { build(:reminder) }
 
   it { is_expected.to validate_presence_of(:title) }
-  it { is_expected.to validate_presence_of(:date) }
-  it { is_expected.to validate_presence_of(:time) }
-  it { is_expected.to validate_numericality_of(:time)
-                        .is_greater_than_or_equal_to(0)
-                        .is_less_than(24)
-                        .only_integer }
+  it { is_expected.to validate_presence_of(:due_date) }
 
-  describe 'date and time validation' do
-    context 'future date and time' do
-      subject { build(:reminder, time: DateTime.current.hour + 1) }
+  describe 'due_date' do
+    context 'future due_date' do
+      subject { build(:reminder, due_date: DateTime.current + 1.day) }
 
       it 'is valid' do
         expect(subject.valid?).to be true
       end
     end
 
-    context 'date in the past' do
-      subject { build(:reminder, date: Date.yesterday) }
+    context 'past due_date' do
+      shared_context 'for a past due_date' do
+        it 'is not valid' do
+          expect(subject.valid?).to be false
+        end
 
-      it 'is not valid' do
-        expect(subject.valid?).to be false
+        it 'adds an error message to the due_date field' do
+          subject.valid?
+          expect(subject.errors[:due_date]).not_to be_empty
+        end
       end
 
-      it 'adds an error message to the date field' do
-        subject.valid?
-        expect(subject.errors[:date]).not_to be_empty
+      describe 'due_date day is in the past ' do
+        subject { build(:reminder, due_date: DateTime.current - 1.day) }
+        include_examples 'for a past due_date'
       end
 
-      it 'does not add an error message to the time field' do
-        subject.valid?
-        expect(subject.errors[:time]).to be_empty
-      end
-    end
-
-    context 'current date but time in the past' do
-      subject { build(:reminder, time: 2.hours.ago.hour) }
-
-      it 'is not valid' do
-        expect(subject.valid?).to be false
-      end
-
-      it 'adds an error message to the date field' do
-        subject.valid?
-        expect(subject.errors[:date]).to be_empty
-      end
-
-      it 'does not add an error message to the time field' do
-        subject.valid?
-        expect(subject.errors[:time]).not_to be_empty
+      describe 'due_date time is in the past' do
+        subject { build(:reminder, due_date: DateTime.current - 1.hour) }
+        include_examples 'for a past due_date'
       end
     end
   end
-
 end

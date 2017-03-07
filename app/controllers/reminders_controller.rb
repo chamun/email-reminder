@@ -17,17 +17,17 @@ class RemindersController < ApplicationController
   private
 
   def reminder_params
-    params
-      .require(:reminder)
-      .permit(:title, :date, :time)
-      .tap do |reminder|
-        reminder[:date] = to_date(reminder[:date])
-      end
+    {
+      title: params[:reminder][:title],
+      due_date: extract_due_date(params[:reminder])
+    }
   end
 
-  def to_date(date_string)
-    return nil unless date_string.present?
-    Date.strptime(date_string, '%Y-%m-%d')
+  def extract_due_date(reminder)
+    date_string, time_string = reminder[:date], reminder[:time]
+    return nil unless date_string.present? && time_string.present?
+    date = Date.strptime(date_string, '%Y-%m-%d')
+    DateTime.new(date.year, date.month, date.day, time_string.to_i).in_time_zone
   rescue ArgumentError
     nil
   end
