@@ -10,10 +10,18 @@ RSpec.describe RemindersController, type: :controller do
 
   describe 'POST /create' do
 
+    def reminder_attributes(opts={})
+      reminder = attributes_for(:reminder, opts)
+      reminder.merge({
+        date: reminder[:due_date],
+        time: reminder[:due_date].hour
+      })
+    end
+
     describe 'with valid params' do
 
       def make_request
-        post :create, params: { reminder: attributes_for(:reminder) }
+        post :create, params: { reminder: reminder_attributes }
       end
 
       it 'redirects to the /new page' do
@@ -48,30 +56,29 @@ RSpec.describe RemindersController, type: :controller do
       end
 
       describe 'missing title' do
-        let(:reminder) { attributes_for(:reminder, title: nil) }
+        let(:reminder) { reminder_attributes.merge(title: nil) }
         include_examples 'invalid params'
       end
 
       describe 'missing date' do
-        let(:reminder) { attributes_for(:reminder, date: nil) }
+        let(:reminder) { reminder_attributes.merge(date: nil) }
         include_examples 'invalid params'
       end
 
       describe 'invalid date' do
-        let(:reminder) { attributes_for(:reminder, date: 'invalid') }
+        let(:reminder) { reminder_attributes.merge(date: 'invalid') }
         include_examples 'invalid params'
       end
 
       describe 'missing time' do
-        let(:reminder) { attributes_for(:reminder, time: nil) }
+        let(:reminder) { reminder_attributes.merge(time: nil) }
         include_examples 'invalid params'
       end
 
       describe 'missing time' do
-        let(:reminder) { attributes_for(:reminder, time: 'invalid') }
+        let(:reminder) { reminder_attributes.merge(time: 'invalid') }
         include_examples 'invalid params'
       end
     end
   end
-
 end
