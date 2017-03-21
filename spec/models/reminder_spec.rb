@@ -5,6 +5,7 @@ RSpec.describe Reminder, type: :model do
 
   it { is_expected.to validate_presence_of(:title) }
   it { is_expected.to validate_presence_of(:due_date) }
+  it { is_expected.to belong_to(:user) }
 
   describe 'due_date' do
     context 'future due_date' do
