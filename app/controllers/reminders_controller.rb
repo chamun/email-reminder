@@ -27,7 +27,7 @@ class RemindersController < ApplicationController
     date_string, time_string = reminder[:date], reminder[:time]
     return nil unless date_string.present? && time_string.present?
     date = Date.strptime(date_string, '%Y-%m-%d')
-    Time.zone.local(date.year, date.month, date.day, time_string.to_i)
+    Time.zone.local(date.year, date.month, date.day, Integer(time_string))
   rescue ArgumentError
     nil
   end
