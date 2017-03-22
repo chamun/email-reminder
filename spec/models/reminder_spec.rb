@@ -8,9 +8,10 @@ RSpec.describe Reminder, type: :model do
   it { is_expected.to belong_to(:user) }
 
   describe 'due_date' do
-    context 'future due_date' do
-      subject { build(:reminder, :with_user, due_date: DateTime.current + 1.day) }
+    subject { build(:reminder, :with_user, due_date: due_date) }
 
+    context 'future due_date' do
+      let(:due_date) { DateTime.current + 1.day }
       it 'is valid' do
         expect(subject.valid?).to be true
       end
@@ -29,12 +30,12 @@ RSpec.describe Reminder, type: :model do
       end
 
       describe 'due_date day is in the past ' do
-        subject { build(:reminder, due_date: DateTime.current - 1.day) }
+        let(:due_date) { DateTime.current - 1.day }
         include_examples 'for a past due_date'
       end
 
       describe 'due_date time is in the past' do
-        subject { build(:reminder, due_date: DateTime.current - 1.hour) }
+        let(:due_date) { DateTime.current - 1.hour }
         include_examples 'for a past due_date'
       end
     end
