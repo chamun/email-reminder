@@ -9,7 +9,7 @@ RSpec.describe Reminder, type: :model do
 
   describe 'due_date' do
     context 'future due_date' do
-      subject { build(:reminder, due_date: DateTime.current + 1.day) }
+      subject { build(:reminder, :with_user, due_date: DateTime.current + 1.day) }
 
       it 'is valid' do
         expect(subject.valid?).to be true
