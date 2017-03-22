@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.describe RemindersController, type: :controller do
 
+  before do
+    create(:user)
+  end
+
   describe 'GET /new' do
     it 'returns OK' do
       expect(get :new).to be_ok
@@ -31,6 +35,11 @@ RSpec.describe RemindersController, type: :controller do
 
       it 'creates a new reminder' do
         expect { make_request }.to change { Reminder.count }.by(1)
+      end
+
+      it 'associates the new reminder with the first user in the database' do
+        make_request
+        expect(Reminder.last.user).to eq(User.first)
       end
     end
 

@@ -2,6 +2,10 @@ require 'rails_helper'
 
 RSpec.feature 'Creating a reminder' do
 
+  before do
+    create(:user)
+  end
+
   def select_future_date_and_time
     future_date = DateTime.current.tomorrow
     fill_in 'Date', with: future_date
