@@ -5,6 +5,10 @@ class Reminder < ApplicationRecord
   validates :due_date, presence: true
   validate :future_due_date
 
+  def user_email
+    user&.email
+  end
+
   private
 
   def future_due_date

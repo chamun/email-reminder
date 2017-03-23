@@ -40,4 +40,20 @@ RSpec.describe Reminder, type: :model do
       end
     end
   end
+
+  describe 'user_email' do
+    context 'user is present' do
+      subject { build(:reminder, :with_user) }
+      it "returns the user's email" do
+        expect(subject.user_email).to eq(subject.user.email)
+      end
+    end
+
+    context 'user is not present' do
+      subject { build(:reminder) }
+      it "returns nil" do
+        expect(subject.user_email).to eq(nil)
+      end
+    end
+  end
 end
