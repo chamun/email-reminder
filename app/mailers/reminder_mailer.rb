@@ -1,5 +1,8 @@
 class ReminderMailer < ApplicationMailer
   def remind(reminder)
-    mail(subject: reminder.title)
+    mail(
+      to: reminder.user_email,
+      subject: reminder.title
+    )
   end
 end
