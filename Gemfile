@@ -30,6 +30,7 @@ group :test do
   gem 'capybara'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
+  gem 'timecop'
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
