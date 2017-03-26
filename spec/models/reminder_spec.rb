@@ -39,5 +39,61 @@ RSpec.describe Reminder, type: :model do
         include_examples 'for a past due_date'
       end
     end
+
+    describe 'past due_date for sent reminders' do
+      let(:due_date) { DateTime.current - 1.day }
+
+      before do
+        subject.sent = true
+      end
+
+      it "does not validate past due_date when reminder is sent" do
+        expect(subject.valid?).to be true
+      end
+    end
+  end
+
+  describe 'user_email' do
+    context 'user is present' do
+      subject { build(:reminder, :with_user) }
+      it "returns the user's email" do
+        expect(subject.user_email).to eq(subject.user.email)
+      end
+    end
+
+    context 'user is not present' do
+      subject { build(:reminder) }
+      it "returns nil" do
+        expect(subject.user_email).to eq(nil)
+      end
+    end
+  end
+
+  describe '.not_sent' do
+    let!(:not_sent) { create_list(:reminder, 2, :with_user) }
+
+    before do
+      create_list(:reminder, 2,
+                  :with_user,
+                  due_date: DateTime.current - 1.hour,
+                  sent: true)
+    end
+
+    it 'returns reminders that were not sent' do
+      expect(described_class.not_sent).to match_array(not_sent)
+    end
+  end
+
+  describe '.past_due' do
+    let!(:due) { create_list(:reminder, 2, :with_user) }
+
+    it 'returns only past due reminders' do
+      Timecop.travel(DateTime.current + 1.hour) do
+        create_list(:reminder, 2,
+                    :with_user,
+                    due_date: DateTime.current.tomorrow)
+        expect(described_class.past_due).to match_array(due)
+      end
+    end
   end
 end

@@ -3,7 +3,14 @@ class Reminder < ApplicationRecord
 
   validates :title, presence: true
   validates :due_date, presence: true
-  validate :future_due_date
+  validate :future_due_date, unless: :sent?
+
+  scope :not_sent, -> { where(sent: false) }
+  scope :past_due, -> { where("due_date <= ?", DateTime.current) }
+
+  def user_email
+    user&.email
+  end
 
   private
 
