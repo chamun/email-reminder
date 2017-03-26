@@ -5,6 +5,8 @@ class Reminder < ApplicationRecord
   validates :due_date, presence: true
   validate :future_due_date, unless: :sent?
 
+  scope :not_sent, -> { where(sent: false) }
+
   def user_email
     user&.email
   end
