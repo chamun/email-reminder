@@ -39,7 +39,20 @@ RSpec.describe Reminder, type: :model do
         include_examples 'for a past due_date'
       end
     end
+
+    describe 'past due_date for sent reminders' do
+      let(:due_date) { DateTime.current - 1.day }
+
+      before do
+        subject.sent = true
+      end
+
+      it "does not validate past due_date when reminder is sent" do
+        expect(subject.valid?).to be true
+      end
+    end
   end
+
 
   describe 'user_email' do
     context 'user is present' do
