@@ -19,6 +19,7 @@ class RemindersController < ApplicationController
   def reminder_params
     {
       title: params[:reminder][:title],
+      message: params[:reminder][:message],
       due_date: extract_due_date(params[:reminder]),
       user: User.first
     }
