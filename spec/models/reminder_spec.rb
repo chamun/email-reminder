@@ -83,4 +83,17 @@ RSpec.describe Reminder, type: :model do
       expect(described_class.not_sent).to match_array(not_sent)
     end
   end
+
+  describe '.past_due' do
+    let!(:due) { create_list(:reminder, 2, :with_user) }
+
+    it 'returns only past due reminders' do
+      Timecop.travel(DateTime.current + 1.hour) do
+        create_list(:reminder, 2,
+                    :with_user,
+                    due_date: DateTime.current.tomorrow)
+        expect(described_class.past_due).to match_array(due)
+      end
+    end
+  end
 end

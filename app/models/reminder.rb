@@ -6,6 +6,7 @@ class Reminder < ApplicationRecord
   validate :future_due_date, unless: :sent?
 
   scope :not_sent, -> { where(sent: false) }
+  scope :past_due, -> { where("due_date <= ?", DateTime.current) }
 
   def user_email
     user&.email
