@@ -1,0 +1,43 @@
+body {
+  font-family: Helvetica, "Sans serif";
+}
+
+#content {
+  width: 400px;
+  margin: auto;
+  padding-bottom: 30px;
+}
+
+#reminder_title {
+  width: 88%;
+}
+
+#reminder_date {
+  width: 160px;
+  text-align: left;
+}
+
+#reminder_time {
+  width: 115px;
+}
+
+#reminder_message {
+  width: 98%;
+  height: 200px;
+  resize: none;
+  margin-top: 5px
+}
+
+h1 {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+input[type=submit] {
+  float: right;
+  margin-right: 15px;
+}
+
+fieldset {
+  border: 0;
+}
