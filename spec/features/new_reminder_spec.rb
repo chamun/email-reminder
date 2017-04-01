@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.feature 'Creating a reminder' do
 
+  let!(:user) { create(:user) }
+
   before do
-    create(:user)
+    sign_in user
   end
 
   def select_future_date_and_time
@@ -42,5 +44,11 @@ RSpec.feature 'Creating a reminder' do
     click_on 'Submit'
 
     expect(page).to have_content('Reminder could not be created!')
+  end
+
+  scenario 'User is not logged in' do
+    sign_out user
+    visit new_reminder_path
+    expect(page).to have_content('You need to sign in or sign up before continuing.')
   end
 end
