@@ -68,9 +68,11 @@ RSpec.describe RemindersController, type: :controller do
         expect { make_request }.to change { Reminder.count }.by(1)
       end
 
-      it 'associates the new reminder with the first user in the database' do
+      it 'associates the new reminder with the logged in user' do
+        another_user = create(:user)
+        sign_in(another_user)
         make_request
-        expect(Reminder.last.user).to eq(User.first)
+        expect(Reminder.last.user).to eq(another_user)
       end
     end
 

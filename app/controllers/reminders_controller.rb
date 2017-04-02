@@ -23,7 +23,7 @@ class RemindersController < ApplicationController
       title: params[:reminder][:title],
       message: params[:reminder][:message],
       due_date: extract_due_date(params[:reminder]),
-      user: User.first
+      user: current_user
     }
   end
 
