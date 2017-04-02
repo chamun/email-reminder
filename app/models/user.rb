@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-  has_many :reminders
+  devise :database_authenticatable, :registerable, :recoverable, :validatable
+
+  has_many :reminders, dependent: :destroy
 
   validates :email, uniqueness: true, presence: true
 end
