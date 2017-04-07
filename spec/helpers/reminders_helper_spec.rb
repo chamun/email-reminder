@@ -30,4 +30,34 @@ RSpec.describe RemindersHelper, type: :helper do
         ['11:00 PM', 23]])
     end
   end
+
+  describe 'time_option' do
+    describe 'date_time is present' do
+      it 'returns a valid time option value' do
+        date_time = Time.zone.local(2017, 04, 02, 22)
+        expect(helper.time_option(date_time)).to eq(22)
+      end
+    end
+
+    describe 'date_time is nil' do
+      it 'return nil' do
+        expect(helper.time_option(nil)).to be nil
+      end
+    end
+  end
+
+  describe 'date_value' do
+    describe 'date_time is present' do
+      it 'returns a valid date string' do
+        date_time = Time.zone.local(2017, 04, 02, 22)
+        expect(helper.date_value(date_time)).to eq('2017-04-02')
+      end
+    end
+
+    describe 'date_time is nil' do
+      it 'return nil' do
+        expect(helper.date_value(nil)).to be nil
+      end
+    end
+  end
 end

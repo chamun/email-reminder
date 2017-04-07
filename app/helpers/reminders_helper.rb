@@ -5,6 +5,14 @@ module RemindersHelper
     end.unshift(['12:00 AM', 0])
   end
 
+  def time_option(date)
+    date&.hour
+  end
+
+  def date_value(date)
+    date&.strftime('%Y-%m-%d')
+  end
+
   private
 
   def to_am_pm(hour)
