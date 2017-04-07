@@ -7,12 +7,11 @@
     </fieldset>
     <fieldset>
       <%= label_tag "reminder[date]", 'Date' %>
-      <%= date_field_tag "reminder[date]", date_value(@reminder.due_date),
+      <%= date_field_tag "reminder[date]", date_value(@reminder),
         required: true, placeholder: 'yyyy-mm-dd' %>
       <%= label_tag "reminder[time]", 'Time' %>
       <%= select_tag "reminder[time]",
-        options_for_select(time_options,
-                           time_option(@reminder.due_date)) %>
+        options_for_select(time_options, time_option(@reminder)) %>
     </fieldset>
     <fieldset>
       <%= f.label :message, 'Message' %>

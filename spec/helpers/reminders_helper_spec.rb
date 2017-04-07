@@ -32,31 +32,35 @@ RSpec.describe RemindersHelper, type: :helper do
   end
 
   describe 'time_option' do
-    describe 'date_time is present' do
+    describe 'reminder has a due date' do
       it 'returns a valid time option value' do
-        date_time = Time.zone.local(2017, 04, 02, 22)
-        expect(helper.time_option(date_time)).to eq(22)
+        due_date = Time.zone.local(2017, 04, 02, 22)
+        reminder = build(:reminder, due_date: due_date)
+        expect(helper.time_option(reminder)).to eq(22)
       end
     end
 
-    describe 'date_time is nil' do
+    describe 'reminder does not have a due date' do
       it 'return nil' do
-        expect(helper.time_option(nil)).to be nil
+        reminder = build(:reminder, due_date: nil)
+        expect(helper.time_option(reminder)).to be nil
       end
     end
   end
 
   describe 'date_value' do
-    describe 'date_time is present' do
+    describe 'reminder has a due date' do
       it 'returns a valid date string' do
-        date_time = Time.zone.local(2017, 04, 02, 22)
-        expect(helper.date_value(date_time)).to eq('2017-04-02')
+        due_date = Time.zone.local(2017, 04, 02, 22)
+        reminder = build(:reminder, due_date: due_date)
+        expect(helper.date_value(reminder)).to eq('2017-04-02')
       end
     end
 
-    describe 'date_time is nil' do
+    describe 'reminder does not have a due date' do
       it 'return nil' do
-        expect(helper.date_value(nil)).to be nil
+        reminder = build(:reminder, due_date: nil)
+        expect(helper.date_value(reminder)).to be nil
       end
     end
   end

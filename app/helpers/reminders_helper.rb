@@ -5,12 +5,12 @@ module RemindersHelper
     end.unshift(['12:00 AM', 0])
   end
 
-  def time_option(date)
-    date&.hour
+  def time_option(reminder)
+    reminder.due_date&.hour
   end
 
-  def date_value(date)
-    date&.strftime('%Y-%m-%d')
+  def date_value(reminder)
+    reminder.due_date&.strftime('%Y-%m-%d')
   end
 
   private
