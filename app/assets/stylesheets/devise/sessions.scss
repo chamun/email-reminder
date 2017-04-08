@@ -1,0 +1,32 @@
+body {
+  font-family: Helvetica, "Sans serif";
+}
+
+h1 {
+  padding-left: 10px;
+  padding-top: 10px;
+}
+
+#content {
+  width: 400px;
+  margin: auto;
+  padding-bottom: 30px;
+}
+
+input[type=submit] {
+  float: right;
+  margin-right: 15px;
+}
+
+fieldset {
+  border: 0;
+}
+
+#user_email, #user_password {
+  width: 100%;
+  display: block;
+}
+
+a {
+  padding-left: 15px;
+}
