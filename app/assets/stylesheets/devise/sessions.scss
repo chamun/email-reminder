@@ -18,13 +18,25 @@ input[type=submit] {
   margin-right: 15px;
 }
 
+#cancel_account {
+  margin-top: 70px;
+  float: none;
+  width: 100%;
+  margin-right: 0px;
+  font-weight: bold;
+  color: #ffffff;
+  border-color: #000000;
+  background-color: #ff2828;
+}
+
 fieldset {
   border: 0;
 }
 
 #user_email,
 #user_password,
-#user_password_confirmation
+#user_password_confirmation,
+#user_current_password
 {
   width: 100%;
   display: block;
