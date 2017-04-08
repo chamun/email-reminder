@@ -22,7 +22,10 @@ fieldset {
   border: 0;
 }
 
-#user_email, #user_password {
+#user_email,
+#user_password,
+#user_password_confirmation
+{
   width: 100%;
   display: block;
 }
