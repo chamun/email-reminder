@@ -16,6 +16,17 @@ RSpec.feature "Navigation" do
     expect(page).to have_button("Sign up")
   end
 
+  scenario "From the log in page to the new reminders page" do
+    visit new_user_session_path
+    within("#new_user") do
+      fill_in "Email", with: user.email
+      fill_in "Password", with: user.password
+      click_on "Log in"
+    end
+    expect(page).to have_button("Submit")
+    expect(page).to have_text("New reminder")
+  end
+
   scenario "From the forgot password page to log in page" do
     visit new_user_password_path
     click_on "Log in"
