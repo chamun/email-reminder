@@ -1,0 +1,35 @@
+<div id="content">
+  <h1>Edit <%= resource.email %></h1>
+
+  <%= form_for(resource,
+               as: resource_name,
+               url: registration_path(resource_name),
+               html: { method: :put }) do |f| %>
+
+    <%= devise_error_messages! %>
+
+    <fieldset>
+      <%= f.label :password %>
+      <%= f.password_field :password, autocomplete: "off" %>
+      <% if @minimum_password_length %>
+        <em><%= @minimum_password_length %> characters minimum</em><br />
+      <% end %>
+      <em>(leave blank if you don't want to change it)</em>
+    </fieldset>
+    <fieldset>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    </fieldset>
+    <fieldset>
+      <%= f.label :current_password %>
+      <%= f.password_field :current_password, autocomplete: "off" %>
+      <em>(we need your current password to confirm your changes)</em>
+    </fieldset>
+    <%= f.submit "Update" %>
+  <% end %>
+
+  <%= button_to "Delete my account", registration_path(resource_name),
+    data: { confirm: "Are you sure?" },
+    method: :delete,
+    id: "cancel_account" %>
+</div>
