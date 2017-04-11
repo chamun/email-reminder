@@ -9,7 +9,7 @@
   </head>
 
   <body>
-    <div>
+    <div id="navigation">
       <% if user_signed_in? %>
         <%= link_to "New reminder", new_reminder_path %>
         <%= link_to "Settings", edit_user_registration_path(current_user) %>
