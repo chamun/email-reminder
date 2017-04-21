@@ -12,6 +12,8 @@ gem 'turbolinks', '~> 5'
 gem 'jbuilder', '~> 2.5'
 gem 'devise'
 
+gem 'timecop'
+
 
 group :development, :test do
   gem 'byebug', platform: :mri
@@ -32,7 +34,6 @@ group :test do
   gem 'capybara'
   gem 'shoulda-matchers'
   gem 'rails-controller-testing'
-  gem 'timecop'
 end
 
 group :production do
