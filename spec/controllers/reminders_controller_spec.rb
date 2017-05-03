@@ -125,4 +125,20 @@ RSpec.describe RemindersController, type: :controller do
       end
     end
   end
+
+  describe 'GET /index' do
+    describe 'when user is not logged in' do
+      def make_request
+        get :index
+      end
+
+      include_context 'for a unauthenticated user'
+    end
+
+    describe 'when user is logged in' do
+      it 'returns OK' do
+        expect(get :index).to be_ok
+      end
+    end
+  end
 end

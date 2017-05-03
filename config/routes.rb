@@ -7,5 +7,5 @@ Rails.application.routes.draw do
     devise_scope(:user) { root "devise/sessions#new" }
   end
 
-  resources :reminders, only: [:new, :create]
+  resources :reminders, only: [:new, :create, :index]
 end

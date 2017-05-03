@@ -16,6 +16,10 @@ class RemindersController < ApplicationController
     end
   end
 
+  def index
+    render nothing: true
+  end
+
   private
 
   def reminder_params
