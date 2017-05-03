@@ -17,7 +17,7 @@ class RemindersController < ApplicationController
   end
 
   def index
-    render nothing: true
+    @reminders = current_user.reminders
   end
 
   private

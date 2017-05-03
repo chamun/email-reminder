@@ -1,0 +1,14 @@
+<div id="content">
+  <h1>My reminders</h1>
+  <% if @reminders.present? %>
+    <table>
+      <tr>
+        <th>Title</th>
+        <th>Due date</th>
+      </tr>
+      <%= render @reminders %>
+    </table>
+  <% else %>
+    You have no reminders
+  <% end %>
+</div>
