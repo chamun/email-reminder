@@ -68,6 +68,24 @@ RSpec.feature "Navigation" do
     expect(page).to have_button("Update")
   end
 
+  scenario "From the new reminder page to list all reminders page" do
+    reminder = create(:reminder, user: user)
+    sign_in user
+    visit new_reminder_path
+    click_on "My reminders"
+    expect(page).to have_text(reminder.title)
+    expect(page).to have_text(reminder.due_date)
+  end
+
+  scenario "From the edit user page to list all reminders page" do
+    reminder = create(:reminder, user: user)
+    sign_in user
+    visit edit_user_registration_path
+    click_on "My reminders"
+    expect(page).to have_text(reminder.title)
+    expect(page).to have_text(reminder.due_date)
+  end
+
   scenario "Logging out from the new reminder page" do
     sign_in user
     visit new_reminder_path
